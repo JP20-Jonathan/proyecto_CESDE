@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import com.cesde.proyecto_integrador_backend.Repository.RegistroRepository;
 import com.cesde.proyecto_integrador_backend.Repository.RetoRepository;
 import com.cesde.proyecto_integrador_backend.model.Reto;
 
@@ -14,6 +15,9 @@ public class RetoService {
     
     @Autowired 
     RetoRepository retoRepository;
+
+    @Autowired
+    RegistroRepository registroRepository;
 
     public Reto guardaReto (Reto reto){
         return retoRepository.save(reto);
@@ -26,6 +30,9 @@ public class RetoService {
     public String borrarReto (UUID id){
         if (!retoRepository.existsById(id)) {
             throw new RuntimeException("Reto no encontrado");
+        }
+        if (registroRepository.existsByRetoId(id)) {
+            throw new RuntimeException("El reto tiene registros asociados");
         }
 
         retoRepository.deleteById(id);

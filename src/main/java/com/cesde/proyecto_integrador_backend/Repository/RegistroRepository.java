@@ -9,5 +9,6 @@ import java.util.UUID;
 @Repository
 public interface RegistroRepository extends JpaRepository<Registro, UUID> {
 
-    boolean existsByIdUsuarioAndIdReto(UUID idUsuario, UUID idReto);
+    boolean existsByUsuarioIdAndRetoId(UUID usuarioId, UUID retoId);
+    boolean existsByRetoId(UUID retoId);
 }

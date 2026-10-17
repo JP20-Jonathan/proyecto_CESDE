@@ -32,25 +32,29 @@ public class Registro {
     @Column(name = "estado", nullable = false)
     private EstadoRegistro estado;
 
+    // Relación: muchos registros pertenecen a un usuario
     @NotNull(message = "El usuario es obligatorio")
-    @Column(name = "id_usuario", nullable = false)
-    private UUID idUsuario;          // UUID futuramente se reemplazará por @ManyToOne para relacionar
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
+    // Relación: muchos registros pertenecen a un reto
     @NotNull(message = "El reto es obligatorio")
-    @Column(name = "id_reto", nullable = false)
-    private UUID idReto;            // UUID futuramente se reemplazará por @ManyToOne para relacionar
+    @ManyToOne
+    @JoinColumn(name = "id_reto", nullable = false)
+    private Reto reto;
 
 
     public Registro() {
     }
 
-    public Registro(UUID id, LocalDateTime fechaRegistro, String observacion, EstadoRegistro estado, UUID idUsuario, UUID idReto) {
+    public Registro(UUID id, LocalDateTime fechaRegistro, String observacion, EstadoRegistro estado, Usuario usuario, Reto reto) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.observacion = observacion;
         this.estado = estado;
-        this.idUsuario = idUsuario;
-        this.idReto = idReto;
+        this.usuario = usuario;
+        this.reto = reto;
     }
 
     public UUID getId() {
@@ -69,12 +73,12 @@ public class Registro {
         return estado;
     }
 
-    public UUID getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public UUID getIdReto() {
-        return idReto;
+    public Reto getReto() {
+        return reto;
     }
 
     public void setId(UUID id) {
@@ -93,12 +97,12 @@ public class Registro {
         this.estado = estado;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public void setIdReto(UUID idReto) {
-        this.idReto = idReto;
+    public void setReto(Reto reto) {
+        this.reto = reto;
     }
 }
 

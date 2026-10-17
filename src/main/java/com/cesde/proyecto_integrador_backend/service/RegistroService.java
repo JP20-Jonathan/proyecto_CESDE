@@ -18,7 +18,7 @@ public class RegistroService {
 
 
 public Registro guardarRegistro(Registro registro){
-    if (registroRepository.existsByIdUsuarioAndIdReto(registro.getIdUsuario(), registro.getIdReto())){
+    if (registroRepository.existsByUsuarioIdAndRetoId(registro.getUsuario().getId(), registro.getReto().getId())){
         throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario ya esta inscrito en este reto");
     }
     return registroRepository.save(registro);
@@ -48,8 +48,8 @@ public Registro actualizarRegistro(UUID id, Registro registro){
     reg.setFechaRegistro(registro.getFechaRegistro());
     reg.setObservacion(registro.getObservacion());
     reg.setEstado(registro.getEstado());
-    reg.setIdUsuario(registro.getIdUsuario());
-    reg.setIdReto(registro.getIdReto());
+    reg.setUsuario(registro.getUsuario());
+    reg.setReto(registro.getReto());
 
     return registroRepository.save(reg);
 }
