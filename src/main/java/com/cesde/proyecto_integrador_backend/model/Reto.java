@@ -35,11 +35,13 @@ public class Reto {
     private String estado;
 
     //id empresa
+    @NotNull(message = "La empresa es obligatoria")
     @ManyToOne
     @JoinColumn (name = "empresa_id", referencedColumnName = "id")
     private Empresa empresa;
 
     // id categoria
+    @NotNull(message = "La categoría es obligatoria")
     @ManyToOne
     @JoinColumn (name = "categoria_id", referencedColumnName = "id")
     private Categoria categoria;

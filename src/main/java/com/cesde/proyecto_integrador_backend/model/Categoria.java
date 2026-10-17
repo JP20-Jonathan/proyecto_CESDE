@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import com.cesde.proyecto_integrador_backend.enums.AREAS;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +22,7 @@ public class Categoria {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @NotBlank(message = "El área responsable es obligatoria")
+    @NotNull(message = "El área responsable es obligatoria")
     @Column(name = "area_responsable", nullable = false)
     @Enumerated(EnumType.STRING)
     private AREAS areaResponsable;

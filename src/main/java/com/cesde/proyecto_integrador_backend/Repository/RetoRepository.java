@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository 
 public interface RetoRepository  extends JpaRepository<Reto, UUID>{
-    
+    boolean existsByEmpresaId(UUID empresaId);
+    boolean existsByCategoriaId(UUID categoriaId);
 }

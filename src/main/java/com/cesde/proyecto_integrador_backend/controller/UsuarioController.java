@@ -1,0 +1,27 @@
+package com.cesde.proyecto_integrador_backend.controller;
+
+import com.cesde.proyecto_integrador_backend.dto.LoginRequest;
+import com.cesde.proyecto_integrador_backend.model.Usuario;
+import com.cesde.proyecto_integrador_backend.service.UsuarioService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/v1/usuario")
+public class UsuarioController {
+
+    @Autowired
+    UsuarioService usuarioService;
+
+    @PostMapping("/registro")
+    public Usuario registrar(@Valid @RequestBody Usuario usuario){
+        return usuarioService.registrar(usuario);
+    }
+
+    @PostMapping("/login")
+    public Usuario iniciarSesion(@Valid @RequestBody LoginRequest datos){
+        return usuarioService.iniciarSesion(datos);
+    }
+}

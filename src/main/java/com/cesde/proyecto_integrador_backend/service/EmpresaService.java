@@ -1,6 +1,7 @@
 package com.cesde.proyecto_integrador_backend.service;
 
 import com.cesde.proyecto_integrador_backend.Repository.EmpresaRepository;
+import com.cesde.proyecto_integrador_backend.Repository.RetoRepository;
 import com.cesde.proyecto_integrador_backend.model.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRepository;
 
+    @Autowired
+    RetoRepository retoRepository;
+
     public Empresa guardarEmpresa (Empresa empresa){
        return empresaRepository.save(empresa);
     }
@@ -25,6 +29,9 @@ public class EmpresaService {
     public String borrarEmpresa (UUID id){
         if (!empresaRepository.existsById(id)) {
             throw new RuntimeException("Empresa no encontrada");
+        }
+        if (retoRepository.existsByEmpresaId(id)) {
+            throw new RuntimeException("La empresa tiene retos asociados");
         }
 
         empresaRepository.deleteById(id);

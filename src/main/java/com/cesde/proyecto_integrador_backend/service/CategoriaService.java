@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cesde.proyecto_integrador_backend.Repository.CategoriaRepository;
+import com.cesde.proyecto_integrador_backend.Repository.RetoRepository;
 
 import com.cesde.proyecto_integrador_backend.model.Categoria;
 
@@ -15,6 +16,9 @@ public class CategoriaService {
 
     @Autowired 
     CategoriaRepository categoriaRepository;
+
+    @Autowired
+    RetoRepository retoRepository;
 
     public Categoria guardarCategoria (Categoria categoria){
         return categoriaRepository.save(categoria);
@@ -25,6 +29,9 @@ public class CategoriaService {
     public String borrarCategoria (UUID id){
         if (!categoriaRepository.existsById(id)) {
             throw new RuntimeException("Categoria no encontrada");
+        }
+        if (retoRepository.existsByCategoriaId(id)) {
+            throw new RuntimeException("La categoría tiene retos asociados");
         }
 
         categoriaRepository.deleteById(id);
