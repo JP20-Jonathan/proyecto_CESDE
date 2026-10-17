@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/v1/usuario")
@@ -18,6 +20,11 @@ public class UsuarioController {
     @PostMapping("/registro")
     public Usuario registrar(@Valid @RequestBody Usuario usuario){
         return usuarioService.registrar(usuario);
+    }
+
+    @GetMapping("/usuarios")
+    public List<Usuario> listarUsuarios(){
+        return usuarioService.listarUsuarios();
     }
 
     @PostMapping("/login")
