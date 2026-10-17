@@ -1,7 +1,8 @@
 package com.cesde.proyecto_integrador_backend.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Id; -- comento esta linea porque me marca error al ejecutar y agrego la siguiente
+import jakarta.persistence.Id;
 
 import com.cesde.proyecto_integrador_backend.enums.AREAS;
 import jakarta.validation.constraints.NotBlank;
