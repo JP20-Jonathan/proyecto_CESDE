@@ -53,7 +53,7 @@ public class EmpresaService {
         emp.setContacto(empresa.getContacto());
         emp.setCorreo(empresa.getCorreo());
         emp.setTelefono(empresa.getTelefono());
-        emp.setActiva(empresa.isActiva());
+        emp.setActiva(empresa.getActiva());
 
         return empresaRepository.save(emp);
     }

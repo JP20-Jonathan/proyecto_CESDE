@@ -42,7 +42,7 @@ public class Empresa {
     public Empresa() {
     }
 
-    public Empresa(UUID id, String nombre, String nit, String sector, String contacto, String correo, String telefono, boolean activa) {
+    public Empresa(UUID id, String nombre, String nit, String sector, String contacto, String correo, String telefono, Boolean activa) {
         this.id = id;
         this.nombre = nombre;
         this.nit = nit;
@@ -109,11 +109,11 @@ public class Empresa {
         this.telefono = telefono;
     }
 
-    public boolean isActiva() {
+    public Boolean getActiva() {
         return activa;
     }
 
-    public void setActiva(boolean activa) {
+    public void setActiva(Boolean activa) {
         this.activa = activa;
     }
 }
