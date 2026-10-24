@@ -1,6 +1,7 @@
 package com.cesde.proyecto_integrador_backend.service;
 
 import com.cesde.proyecto_integrador_backend.Repository.RegistroRepository;
+import com.cesde.proyecto_integrador_backend.enums.EstadoRegistro;
 import com.cesde.proyecto_integrador_backend.model.Registro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,14 @@ public Registro buscarRegistroPorId(UUID id){
 }
 
 public String borrarRegistro(UUID id){
-    if (!registroRepository.existsById(id)){
-        throw new RuntimeException(("Registro no encontrado"));
+    Registro registro = registroRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Registro no encontrado"));
+
+    // Solo se puede cancelar/rechazar mientras está inscrito; ya aceptado o finalizado queda como historial
+    if (registro.getEstado() != EstadoRegistro.INSCRITO) {
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Solo se puede cancelar una postulación mientras está inscrita");
     }
+
     registroRepository.deleteById(id);
     return "Registro eliminado";
 }
