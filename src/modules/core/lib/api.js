@@ -19,5 +19,11 @@ export async function pedir(ruta, opciones = {}) {
     throw new Error(mensaje)
   }
   const texto = await respuesta.text()
-  return texto ? JSON.parse(texto) : null
+  if (!texto) return null
+  // Algunos endpoints (ej. los DELETE) devuelven texto plano, no JSON
+  try {
+    return JSON.parse(texto)
+  } catch {
+    return texto
+  }
 }

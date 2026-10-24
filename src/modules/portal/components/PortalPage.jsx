@@ -115,16 +115,20 @@ function PortalPage({ usuario, navegar }) {
           </div>
           {visibles.length === 0 && <p className="card vacio">No hay retos publicados con esos filtros.</p>}
           <div className="grid-tarjetas" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 360px), 1fr))' }}>
-            {visibles.map((reto) => (
-              <RetoCard
-                key={reto.id}
-                reto={reto}
-                postulado={Boolean(miPostulacionEn(reto))}
-                puedePostularse={esEstudiante}
-                onPostular={() => alternarPostulacion(reto)}
-                onVerDetalle={() => navegar('retoDetalle', { id: reto.id })}
-              />
-            ))}
+            {visibles.map((reto) => {
+              const registro = miPostulacionEn(reto)
+              return (
+                <RetoCard
+                  key={reto.id}
+                  reto={reto}
+                  postulado={Boolean(registro)}
+                  estadoPostulacion={registro?.estado}
+                  puedePostularse={esEstudiante}
+                  onPostular={() => alternarPostulacion(reto)}
+                  onVerDetalle={() => navegar('retoDetalle', { id: reto.id })}
+                />
+              )
+            })}
           </div>
         </section>
       </main>

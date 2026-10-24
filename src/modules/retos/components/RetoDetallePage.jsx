@@ -8,7 +8,7 @@ import { fechaCorta, fechaHoraCorta, textoCierre } from '../../core/utils/fechas
 import { textoArea } from '../../categorias/utils/areas'
 import { usePostulaciones } from '../../registros/hooks/usePostulaciones'
 import { postularse, cancelarRegistro } from '../../registros/utils/accionesRegistro'
-import { ESTADOS_REGISTRO } from '../../registros/utils/estadosRegistro'
+import { ESTADOS_REGISTRO, claseEstadoRegistro, textoEstadoRegistro } from '../../registros/utils/estadosRegistro'
 import PostulacionFila from '../../registros/components/PostulacionFila'
 import { useDatosRetos } from '../hooks/useDatosRetos'
 import { actualizarReto } from '../services/retoService'
@@ -115,9 +115,15 @@ function RetoDetallePage({ id, usuario, navegar }) {
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
           {esEstudiante ? (
-            <Button variante={miPostulacion ? 'done' : 'p'} icono={miPostulacion ? 'check' : undefined} onClick={alternarPostulacion}>
-              {miPostulacion ? 'Postulación enviada' : 'Postularme'}
-            </Button>
+            miPostulacion && miPostulacion.estado !== 'INSCRITO' ? (
+              <Chip clase={claseEstadoRegistro(miPostulacion.estado)} punto>
+                {textoEstadoRegistro(miPostulacion.estado)}
+              </Chip>
+            ) : (
+              <Button variante={miPostulacion ? 'done' : 'p'} icono={miPostulacion ? 'check' : undefined} onClick={alternarPostulacion}>
+                {miPostulacion ? 'Postulación enviada' : 'Postularme'}
+              </Button>
+            )
           ) : (
             <>
               <Button variante="s" icono="editar" onClick={() => navegar('retoForm', { id: reto.id })}>
