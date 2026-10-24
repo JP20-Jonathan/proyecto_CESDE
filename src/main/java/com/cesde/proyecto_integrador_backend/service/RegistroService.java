@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,16 @@ public Registro actualizarRegistro(UUID id, Registro registro){
 
     reg.setFechaRegistro(registro.getFechaRegistro());
     reg.setObservacion(registro.getObservacion());
+    // Cada transición queda guardada por separado: aceptar no se borra al finalizar
+    if (reg.getEstado() != registro.getEstado()) {
+        if (registro.getEstado() == EstadoRegistro.EN_PROCESO) {
+            reg.setFechaAceptacion(LocalDateTime.now());
+            reg.setAceptadoPor(registro.getGestionadoPor());
+        } else if (registro.getEstado() == EstadoRegistro.FINALIZADO) {
+            reg.setFechaFinalizacion(LocalDateTime.now());
+            reg.setFinalizadoPor(registro.getGestionadoPor());
+        }
+    }
     reg.setEstado(registro.getEstado());
     reg.setUsuario(registro.getUsuario());
     reg.setReto(registro.getReto());
